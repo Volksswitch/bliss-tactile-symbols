@@ -98,9 +98,12 @@ diameter_of_hole = 5; //[2:10]
 move_hole_vertically = 0; //[-15:15]
 
 /*[Hidden]*/
-// Version of this .scad. Bump when the parameter set or geometry changes, so a
-// user's downloaded copy can be checked against the hosted app's expectations.
-scad_version = 1;
+// Version of this .scad; the web app compares a user's local copy against the
+// published manifest to offer updates. Released via "bump bts" (see RELEASING.md).
+// Pre-bump convention: this dev copy reads ONE AHEAD of the last public release
+// (published = 1); the pre-bump stays local/unpushed until its release, and on
+// GitHub main this must equal the manifest's version.
+scad_version = 2;
 // Which part(s) to emit. The web app renders "symbol" and "graphic" separately
 // so it can display each in its own Customizer colour (STL carries no colour).
 // "all" (default) renders the whole symbol together, e.g. for standalone use.
