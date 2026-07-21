@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // publish-scad-version.mjs — regenerate latest_scad_version.json from the
-// canonical "Bliss Tactile Symbols.scad" in this repo. Trigger phrase:
-// "publish scad version".
+// canonical "Bliss Tactile Symbols.scad" in this repo. Run as step 3 of the
+// "bump bts" release ritual (see RELEASING.md).
 //
 // Reads `scad_version = N;` from the .scad and writes the manifest the web app
 // fetches to offer users an in-app update of their local .scad. The `notes` shown
