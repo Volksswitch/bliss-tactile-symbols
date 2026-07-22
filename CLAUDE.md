@@ -1,24 +1,26 @@
 # Working in this repo
 
-## The provisioning bundle is never released from here
+## The provisioning bundle does not live here
 
-`Bliss Tactile Symbols.json` and `SVG files/` are **never** part of a release. They are
-downloaded by users directly from the Volksswitch website, and from that point they are
-the user's own files to maintain. Only the `.scad` auto-updates.
+`Bliss Tactile Symbols.json` (starter concepts) and `SVG files/` (starter Blissymbols) are
+served to users as a ZIP from the Volksswitch website and maintained by Ken there. They are
+**never** released from this repo. Copies of both were deleted from the project folder on
+2026-07-22 and are `.gitignore`d.
 
-Practical consequences:
+- **A release covers the version-gated files only:** `Bliss Tactile Symbols.scad`,
+  `SCAD-CHANGELOG.md`, `latest_scad_version.json`. Nothing else "rides along".
+- **Do not reintroduce the bundle.** Nothing here needs it: the web app reads the JSON and
+  SVGs from the folder the *user* connects, not from any repo, and the website ZIP is built
+  from Ken's own copies. A copy kept here only drifts against the website's, and any fact
+  derived from a drifted copy is wrong. If a sample of the `.json` format is needed (for
+  tests, say), commit a small fixture of a few concepts instead.
+- **Should `SVG files/` ever reappear, never `git add` it.** The repo lives in OneDrive and
+  many of those SVGs are cloud-only placeholders; reading one forces a hydration that can
+  wedge git in an uninterruptible kernel wait, holding `.git/index.lock` until the I/O
+  resolves or the machine reboots. `git status` is safe (it only stats); reading is not.
 
-- **Never stage, commit, or push them.** A "bump bts" release covers the version-gated
-  files only: `Bliss Tactile Symbols.scad`, `SCAD-CHANGELOG.md`,
-  `latest_scad_version.json`. Do not let the bundle "ride along".
-- **Never `git add` the `SVG files/` directory.** The repo lives in OneDrive and many of
-  those SVGs are cloud-only placeholders; reading one forces a hydration that can wedge
-  git in an uninterruptible kernel wait, holding `.git/index.lock` until the I/O resolves
-  or the machine reboots. `git status` is safe (it only stats); reading content is not.
-
-> Note: README.md and RELEASING.md still describe this repo as the canonical source for
-> the bundle and say it ships with the next release. That is stale — this file is
-> correct. Fix those two documents when convenient.
+Note: `svg_path` in the `.scad` resolves `graphic_svg` against a `SVG files/` folder. That
+is the **user's** folder at render time, not this repo — leave those lines alone.
 
 ## If `.git/index.lock` is stuck
 

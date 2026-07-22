@@ -21,22 +21,24 @@ release never touches the `.scad`.
   Everything piles up locally, invisible to users, until you release. **We do not push
   between releases.** One branch: `main`.
 
-## This repo is the canonical source (incl. the provisioning bundle)
+## This repo holds the `.scad` and nothing else that ships
 
-The `.scad`, the presets `.json`, and `SVG files/` are all authored **here**. Ken's
+The `.scad` is authored **here**, and this repo releases **only** it:
+`Bliss Tactile Symbols.scad` + `latest_scad_version.json` + `SCAD-CHANGELOG.md` — the
+version-gated trio that drives the in-app update. Ken's
 `…/Desktop/Bliss Tactile Symbols/` folder is a **downstream** scratch/test area — he
 copies the `.scad` *out* to it to render/test STLs; nothing syncs back. **Claude ignores
 that working folder.**
 
-- **Version-gated (drives the in-app update):** `Bliss Tactile Symbols.scad` +
-  `latest_scad_version.json` + `SCAD-CHANGELOG.md`.
-- **Not version-gated (the provisioning bundle):** `Bliss Tactile Symbols.json` +
-  `SVG files/`. These are the files the website ZIP contains for a new user. They do
-  **not** auto-update to existing users (only the `.scad` does) — once provisioned they
-  are the user's own to maintain. They still follow the same push discipline (committed
-  locally as-you-go, pushed only at a release), so they ride along with the next "bump
-  bts". Build the website ZIP from the **released** files (see the invariant below), not
-  from a pre-bumped dev copy.
+**The provisioning bundle is not here.** `Bliss Tactile Symbols.json` (the starter
+concepts) and `SVG files/` (the starter Blissymbols) are served to users as a ZIP from
+the Volksswitch website and are maintained by Ken there; once provisioned they are the
+user's own files. They are **never** released from this repo, are `.gitignore`d, and
+copies of them were deleted from the project folder (2026-07-22) so nothing here can go
+stale against the website's. Do not reintroduce them: a copy that drifts is worse than
+no copy, and reading `SVG files/` out of OneDrive is what wedged git that morning. If a
+sample of the `.json` format is ever needed (e.g. for tests), commit a small fixture of
+a few concepts rather than the full file.
 
 ## Version numbers
 
@@ -75,11 +77,12 @@ authorizes the whole ritual **through the push** — Claude runs it end to end a
    `version: N` and the `## Version N` bullets into `latest_scad_version.json`. It errors
    if the notes are still a placeholder. Confirm the number matches.
 4. **Commit** the release (`Bliss Tactile Symbols.scad`, `SCAD-CHANGELOG.md`,
-   `latest_scad_version.json`, plus any pending bundle changes to `.json` / `SVG files/`)
-   as one push, so `main`'s `.scad` and manifest both say `N` at the same moment.
+   `latest_scad_version.json`) as one commit, so `main`'s `.scad` and manifest both say
+   `N` at the same moment.
 5. **Push `origin main`.** The updater now offers `N` to users on older versions.
-6. **Rebuild the website ZIP** from the released files (`.scad` at `N`, current `.json` +
-   `SVG files/`) so new users start current and consistent with the manifest.
+6. **Rebuild the website ZIP** — Ken's, from his own copies of the `.json` and
+   `SVG files/`, dropping in the `.scad` at `N` from `main`, so new users start on the
+   released version. Not a step Claude can run; the bundle files do not live in this repo.
 7. **Start the next cycle — pre-bump.** Increment `scad_version` to `N+1`, commit that
    locally, and **do not push.**
 

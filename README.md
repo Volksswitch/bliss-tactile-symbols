@@ -14,10 +14,9 @@ The `.scad` and the web app version **independently**. This repo hosts the publi
 local copy without a web-app release — and a web-app release never forces a `.scad`
 change. See [RELEASING.md](RELEASING.md).
 
-This repo is the **canonical source** for the `.scad`, the presets `.json`, and the
-`SVG files/` — they are authored here. Ken's `…/Desktop/Bliss Tactile Symbols/` folder is
-a downstream scratch/test area (he copies the `.scad` there to render STLs); nothing syncs
-back from it. See [RELEASING.md](RELEASING.md).
+This repo is the **canonical source** for the `.scad` — it is authored here. Ken's
+`…/Desktop/Bliss Tactile Symbols/` folder is a downstream scratch/test area (he copies the
+`.scad` there to render STLs); nothing syncs back from it. See [RELEASING.md](RELEASING.md).
 
 ## Contents
 
@@ -32,13 +31,11 @@ back from it. See [RELEASING.md](RELEASING.md).
 - `scripts/publish-scad-version.mjs` — regenerates the manifest from the `.scad`
   version + changelog.
 
-**The provisioning bundle (served as a ZIP from the Volksswitch website; the initial
-files a new user downloads):**
-
-- `Bliss Tactile Symbols.json` — the starter presets (concepts). Once provisioned it
-  becomes the user's own file to maintain — it is **not** auto-updated by the app.
-- `SVG files/` — the starter Blissymbol SVGs. Likewise the user's to add to; **not**
-  auto-updated.
+**The provisioning bundle is NOT in this repo.** A new user's starter
+`Bliss Tactile Symbols.json` (concepts) and `SVG files/` (Blissymbols) are served as a ZIP
+from the Volksswitch website and maintained there. Once provisioned they are the user's
+own files to maintain — they are **not** auto-updated by the app, and they are never
+released from here.
 
 Only the `.scad` auto-updates in the web app. The `.json` + SVGs ship once via the ZIP.
 
