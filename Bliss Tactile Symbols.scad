@@ -103,7 +103,7 @@ move_hole_vertically = 0; //[-15:15]
 // Pre-bump convention: this dev copy reads ONE AHEAD of the last public release
 // (published = 1); the pre-bump stays local/unpushed until its release, and on
 // GitHub main this must equal the manifest's version.
-scad_version = 2;
+scad_version = 3;
 // Which part(s) to emit. The web app renders "symbol" and "graphic" separately
 // so it can display each in its own Customizer colour (STL carries no colour).
 // "all" (default) renders the whole symbol together, e.g. for standalone use.
