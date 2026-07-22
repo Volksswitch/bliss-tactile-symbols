@@ -1,8 +1,8 @@
 {
-  "version": 1,
+  "version": 2,
   "scad_filename": "Bliss Tactile Symbols.scad",
   "scad_url": "https://raw.githubusercontent.com/Volksswitch/bliss-tactile-symbols/main/Bliss%20Tactile%20Symbols.scad",
   "notes": [
-    "First published version of the symbol designer file."
+    "The string hole is now chamfered at both openings, so the edge is softer on the string and easier to thread."
   ]
 }

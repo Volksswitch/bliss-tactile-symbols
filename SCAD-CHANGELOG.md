@@ -13,6 +13,11 @@ Release flow: bump `scad_version` in `Bliss Tactile Symbols.scad`, rename the
 
 - _Nothing yet._
 
+## Version 2
+
+- The string hole is now chamfered at both openings, so the edge is softer on the
+  string and easier to thread.
+
 ## Version 1
 
 - First published version of the symbol designer file.

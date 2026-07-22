@@ -148,6 +148,16 @@ raw_graphic_height = 5;
 // ballooned the bevel; likewise offset(delta=2) fattened the arms. See the
 // two-step chamfer in raw_graphic below.)
 chamfer_step = 0.1;
+// 45-degree chamfer around each opening of the string hole, so the string does
+// not chafe on a sharp printed edge and the mouth is easier to thread. Measured
+// as the depth of the countersink; the opening comes out hole_chamfer wider all
+// round, i.e. diameter_of_hole + 2*hole_chamfer at the surface.
+hole_chamfer = 0.5;
+// How far the countersink cones carry on PAST the face they break out of. The
+// cut still measures hole_chamfer at the surface — the overrun only keeps the
+// cutting solid from ending flush with the body, which would leave coplanar
+// faces for the difference() to resolve.
+hole_chamfer_overrun = 0.5;
 
 have_graphic = (svg_path != "");
 
@@ -542,9 +552,29 @@ module add_hole(){
 	hole_len = (direction_of_hole=="side to side") ? bsw+20 :symbol_thickness+20;
 	hole_location = (location_of_hole=="top of symbol") ? bst-doh/2-2*rm : bsb+doh/2+2;
 
+	// Half-distance from the hole's axis to the face it breaks out of, so the
+	// countersinks land ON the surface rather than at the ends of the oversized
+	// drill. Side to side, the body's side walls are vertical at x = +/-bsw/2
+	// (shape() insets the polygon by sc then offsets it back out); front to back,
+	// the faces are the flat top and bottom at z = +/-symbol_thickness/2.
+	half_span = (direction_of_hole=="side to side") ? bsw/2 : symbol_thickness/2;
+
 	translate([0,hole_location+move_hole_vertically-5,0])
-	rotate([0,rotation,0])
-	cylinder(d=doh,h=hole_len,center=true);
+	rotate([0,rotation,0]){
+		cylinder(d=doh,h=hole_len,center=true);
+
+		// Chamfer both mouths: a single 45-degree cone per end, running from
+		// hole_chamfer below the face to hole_chamfer_overrun clear of it. Keeping
+		// the same slope the whole way means the cut is still exactly hole_chamfer
+		// wide where it crosses the surface, while no face of the cutting solid
+		// ever lands ON that surface — coplanar faces make CGAL's difference
+		// ambiguous and show up as ghosting/z-fighting in the OpenSCAD preview.
+		for(s=[1,-1]) scale([1,1,s])
+			translate([0,0,half_span-hole_chamfer])
+			cylinder(d1 = doh,
+					 d2 = doh+2*(hole_chamfer+hole_chamfer_overrun),
+					 h  = hole_chamfer+hole_chamfer_overrun);
+	}
 }
 
 module add_RFID_slot(){
