@@ -4,3 +4,7 @@ Desktop.ini
 *~
 *.log
 .claude/settings.local.json
+
+# Provisioning bundle - served from the website, never released from here
+Bliss Tactile Symbols.json
+SVG files/
