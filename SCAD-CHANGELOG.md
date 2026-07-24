@@ -11,6 +11,10 @@ Release flow: bump `scad_version` in `Bliss Tactile Symbols.scad`, rename the
 
 ## Unreleased (next version)
 
+- _Nothing yet._
+
+## Version 3
+
 - "Remove Bliss Indicators" now says what it actually does: it takes off the
   indicator the graphic was drawn with, and leaves an indicator you added yourself
   in "Create a graphic" alone.
