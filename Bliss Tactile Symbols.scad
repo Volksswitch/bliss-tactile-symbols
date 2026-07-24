@@ -45,9 +45,14 @@ slide_center_velcro_vertically = 10; // [-50:50]
 // OpenSCAD reads it too: svg_path below resolves the name against "SVG files/".
 // SVG file name for the graphic (no .svg) — pick with Open, or type a name
 graphic_svg = "";
-// remove the Bliss indicator glyph (tense/plural/etc.) that rides above the
-// symbol before building the graphic. Handled by the web app's Step-0 prep; a
-// standalone-OpenSCAD user prepping their own SVG can leave this off.
+// Removes the Bliss indicator glyph (tense/plural/etc.) the graphic was DRAWN
+// with, before building it. An indicator added in the web app's "Create a
+// graphic" dialog is stamped and is never removed here — that one was chosen
+// deliberately, and that dialog carries its own control for the built-in ones.
+// Handled by the web app's Step-0 prep; a standalone-OpenSCAD user prepping their
+// own SVG can leave this off. As elsewhere in this block, the LAST comment line is
+// what the Customizer shows as the field's description — keep it a whole sentence.
+// remove the indicator the graphic was drawn with; one you added stays
 remove_Bliss_indicators = "yes"; // [yes,no]
 // path to the prepped Blissymbol SVG. The web app overrides this (it writes the
 // chosen file to graphic.svg in the WASM FS and passes -D svg_path); for a
